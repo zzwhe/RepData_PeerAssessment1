@@ -2,7 +2,7 @@
 Reproducible Research Assignment 1
 ==================================
 
-1. Loading library and data set and preprocessing the data
+Loading library and data set and preprocessing the data
 
 ```r
 library(ggplot2)
@@ -98,29 +98,6 @@ plot(data$DateTime, data$steps, type = "l", xlab = "Days", ylab = "Number of ste
 
 ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
 
-
-Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
-The result shows that row 16492 contains the maxinum number of steps (806).
-
-```r
-for(i in 1:nrow(data)){
-    if(is.na(data$steps[i])){
-        data$steps[i] = 0
-    }
-}
-for(j in 1:nrow(data)){
-    if(data$steps[j] == max(data$steps)){
-        print(data[j,])
-    }
-}
-```
-
-```
-##       steps       date interval    time            DateTime
-## 16492   806 2012-11-27      615 6:15:00 2012-11-27 06:15:00
-```
-
-
 Imputing missing values
 Check for the missing value in the columns, "steps", "date" and "iterval"
 
@@ -137,7 +114,7 @@ length(data$steps[!is.na(data$steps)])
 ```
 
 ```
-## [1] 17568
+## [1] 15264
 ```
 
 ```r
@@ -164,8 +141,30 @@ length(data$date[!is.na(data$date)]) - length(data$steps[!is.na(data$steps)])
 ```
 
 ```
-## [1] 0
+## [1] 2304
 ```
+
+Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+The result shows that row 16492 contains the maxinum number of steps (806).
+
+```r
+for(i in 1:nrow(data)){
+    if(is.na(data$steps[i])){
+        data$steps[i] = 0
+    }
+}
+for(j in 1:nrow(data)){
+    if(data$steps[j] == max(data$steps)){
+        print(data[j,])
+    }
+}
+```
+
+```
+##       steps       date interval    time            DateTime
+## 16492   806 2012-11-27      615 6:15:00 2012-11-27 06:15:00
+```
+
 
 Because the median of everyday steps is 0, the strategy is filling in all the NA with 0.
 Create a new dataset ("data1") that is equal to the original dataset but with the missing data filled in.
